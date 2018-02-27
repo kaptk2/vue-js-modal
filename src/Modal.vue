@@ -162,6 +162,7 @@ export default {
       modal: {
         width: 0,
         widthType: 'px',
+        renderedWidth: 0,
         height: 0,
         heightType: 'px',
         renderedHeight: 0
@@ -263,6 +264,7 @@ export default {
       if (MutationObserver) {
         this.mutationObserver = new MutationObserver(mutations => {
           this.updateRenderedHeight()
+          this.updateRenderedWidth()
         })
       }
     }
@@ -603,6 +605,18 @@ export default {
     updateRenderedHeight () {
       if (this.$refs.modal) {
         this.modal.renderedHeight = this.$refs.modal.getBoundingClientRect().height
+      }
+    },
+
+    /**
+     * Update $data.modal.renderedHeight using getBoundingClientRect.
+     * This method is called when:
+     * 1. modal opened
+     * 2. MutationObserver's observe callback
+     */
+    updateRenderedWidth () {
+      if (this.$refs.modal) {
+        this.modal.renderedWidth = this.$refs.modal.getBoundingClientRect().width
       }
     },
 
